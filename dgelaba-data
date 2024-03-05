@@ -1,0 +1,232 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| centre_formation   |
+| hollywood          |
+| information_schema |
+| learnsql           |
+| library            |
+| mysql              |
+| performance_schema |
+| sakila             |
+| storedb            |
+| sys                |
+| test3              |
+| tramway            |
+| world              |
++--------------------+
+13 rows in set (0.00 sec)
+
+mysql> create database DjallabaSoft;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use DjallabaSoft ;
+Database changed
+mysql> create table Emp(
+    -> numE int ,
+    -> nomE varchar(20),
+    -> Fonction varchar(40),
+    -> NumS int ,
+    -> Embauche date ,
+    -> Salaire float,
+    -> Comm float,
+    -> NumD int );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> alter table Emp
+    -> add primary key (numE);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| numE     | int         | NO   | PRI | NULL    |       |
+| nomE     | varchar(20) | YES  |     | NULL    |       |
+| Fonction | varchar(40) | YES  |     | NULL    |       |
+| NumS     | int         | YES  |     | NULL    |       |
+| Embauche | date        | YES  |     | NULL    |       |
+| Salaire  | float       | YES  |     | NULL    |       |
+| Comm     | float       | YES  |     | NULL    |       |
+| NumD     | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> create table Dept(
+    -> NumD int primary key,
+    -> NomD varchar(40),
+    -> Lieu varchar(40));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc Dept;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| NumD  | int         | NO   | PRI | NULL    |       |
+| NomD  | varchar(40) | YES  |     | NULL    |       |
+| Lieu  | varchar(40) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into Emp
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table Emp
+    -> add foreign key (NumD) references Dept (Nu
+mD);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| numE     | int         | NO   | PRI | NULL    |       |
+| nomE     | varchar(20) | YES  |     | NULL    |       |
+| Fonction | varchar(40) | YES  |     | NULL    |       |
+| NumS     | int         | YES  |     | NULL    |       |
+| Embauche | date        | YES  |     | NULL    |       |
+| Salaire  | float       | YES  |     | NULL    |       |
+| Comm     | float       | YES  |     | NULL    |       |
+| NumD     | int         | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> insert into Emp
+    -> values (1,'marieme','directrice',123,20221
+102,9000.50;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> insert into Dept
+    -> values (1,'dept1','azli'),
+    -> (2,'dept2','socoma'),
+    -> (3,'dept3','iziki'),
+    -> (4,'dept4','lmassira');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from Dect ;
+ERROR 1146 (42S02): Table 'djallabasoft.dect' doesn't exist
+mysql> select * from Dept;
++------+-------+----------+
+| NumD | NomD  | Lieu     |
++------+-------+----------+
+|    1 | dept1 | azli     |
+|    2 | dept2 | socoma   |
+|    3 | dept3 | iziki    |
+|    4 | dept4 | lmassira |
++------+-------+----------+
+4 rows in set (0.00 sec)
+
+mysql> insert into Emp
+    -> values (1,'mariem','directrice',123,20220223,9000.50,200.0,3),
+    -> values (2,'wissal','gerante',1234,20210911,8000.50,300.0,2),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into Emp
+values (1,'mariem','directrice',123,20220223,9000.50,200.0,3),
+v' at line 2
+mysql> insert into Emp
+    ->  values (1,'mariem','directrice',123,20220223,9000.50,200.0,3),
+    ->  (2,'wissal','gerante',1234,20210911,8000.50,300.0,2),
+    ->  (3,'farah','caissiare',12345,20190231,4000.50,150.0,1),
+    ->  (4,'khadija','chef',123456,20160415,7000.10,100.0,4);
+ERROR 1292 (22007): Incorrect date value: '20190231' for column 'Embauche' at row 3
+mysql> insert into Emp
+    -> values (1,'mariem','directrice',123,'2022-02-23',9000.50,200.0,3),
+    -> (2,'wissal','gerante',1234,'2021-09-11',8000.50,300.0,2),
+    -> (3,'farah','caissiare',12345,'2019-02-31',4000.50,150.0,1),
+    -> (4,'khadija','chef',123456,'2016-04-15',7000.10,100.0,4);
+ERROR 1292 (22007): Incorrect date value: '2019-02-31' for column 'Embauche' at row 3
+mysql> insert into Emp
+    -> values (1,'mariem','directrice',123,20220223,9000.50,200.0,3),
+    -> (2,'wissal','gerante',1234,20210911,8000.50,300.0,2),
+    -> (3,'farah','caissiare',12345,20190610,4000.50,150.0,1),
+    -> (4,'khadija','chef',123456,20160415,7000.10,100.0,4);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select* from Emp;
++------+---------+------------+--------+------------+---------+------+------+
+| numE | nomE    | Fonction   | NumS   | Embauche   | Salaire | Comm | NumD |
++------+---------+------------+--------+------------+---------+------+------+
+|    1 | mariem  | directrice |    123 | 2022-02-23 |  9000.5 |  200 |    3 |
+|    2 | wissal  | gerante    |   1234 | 2021-09-11 |  8000.5 |  300 |    2 |
+|    3 | farah   | caissiare  |  12345 | 2019-06-10 |  4000.5 |  150 |    1 |
+|    4 | khadija | chef       | 123456 | 2016-04-15 |  7000.1 |  100 |    4 |
++------+---------+------------+--------+------------+---------+------+------+
+4 rows in set (0.00 sec)
+
+mysql>  select * from Dept;
++------+-------+----------+
+| NumD | NomD  | Lieu     |
++------+-------+----------+
+|    1 | dept1 | azli     |
+|    2 | dept2 | socoma   |
+|    3 | dept3 | iziki    |
+|    4 | dept4 | lmassira |
++------+-------+----------+
+4 rows in set (0.00 sec)
+
+mysql> insert into Emp
+    -> (5,'karima','chef',123456,20160415,7000.10,null,4);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '5,'karima','chef',123456,20160415,7000.10,null,4)' at line 2
+mysql> insert into Emp values
+    -> (5,'karima','chef',123456,20160415,7000.10,null,4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Emp;
++------+---------+------------+--------+------------+---------+------+------+
+| numE | nomE    | Fonction   | NumS   | Embauche   | Salaire | Comm | NumD |
++------+---------+------------+--------+------------+---------+------+------+
+|    1 | mariem  | directrice |    123 | 2022-02-23 |  9000.5 |  200 |    3 |
+|    2 | wissal  | gerante    |   1234 | 2021-09-11 |  8000.5 |  300 |    2 |
+|    3 | farah   | caissiare  |  12345 | 2019-06-10 |  4000.5 |  150 |    1 |
+|    4 | khadija | chef       | 123456 | 2016-04-15 |  7000.1 |  100 |    4 |
+|    5 | karima  | chef       | 123456 | 2016-04-15 |  7000.1 | NULL |    4 |
++------+---------+------------+--------+------------+---------+------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Emp
+    -> where comm is not null
+    -> order by comm desc;
++------+---------+------------+--------+------------+---------+------+------+
+| numE | nomE    | Fonction   | NumS   | Embauche   | Salaire | Comm | NumD |
++------+---------+------------+--------+------------+---------+------+------+
+|    2 | wissal  | gerante    |   1234 | 2021-09-11 |  8000.5 |  300 |    2 |
+|    1 | mariem  | directrice |    123 | 2022-02-23 |  9000.5 |  200 |    3 |
+|    3 | farah   | caissiare  |  12345 | 2019-06-10 |  4000.5 |  150 |    1 |
+|    4 | khadija | chef       | 123456 | 2016-04-15 |  7000.1 |  100 |    4 |
++------+---------+------------+--------+------------+---------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select nomE from Emp
+    -> WHERE Embauche >= 20200901;
++--------+
+| nomE   |
++--------+
+| mariem |
+| wissal |
++--------+
+2 rows in set (0.01 sec)
+
+mysql> select Emp.* from emp
+    -> INNER JOIN Dept ON Emp.NumD = Dept.NumD;
++------+---------+------------+--------+------------+---------+------+------+
+| numE | nomE    | Fonction   | NumS   | Embauche   | Salaire | Comm | NumD |
++------+---------+------------+--------+------------+---------+------+------+
+|    3 | farah   | caissiare  |  12345 | 2019-06-10 |  4000.5 |  150 |    1 |
+|    2 | wissal  | gerante    |   1234 | 2021-09-11 |  8000.5 |  300 |    2 |
+|    1 | mariem  | directrice |    123 | 2022-02-23 |  9000.5 |  200 |    3 |
+|    4 | khadija | chef       | 123456 | 2016-04-15 |  7000.1 |  100 |    4 |
+|    5 | karima  | chef       | 123456 | 2016-04-15 |  7000.1 | NULL |    4 |
++------+---------+------------+--------+------------+---------+------+------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT AVG(Salaire) AS MoyenneSalaires from Emp;
++-----------------+
+| MoyenneSalaires |
++-----------------+
+| 7000.3400390625 |
++-----------------+
+1 row in set (0.01 sec)
